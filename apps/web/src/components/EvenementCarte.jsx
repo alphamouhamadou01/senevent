@@ -1,8 +1,7 @@
-import styles from "./EvenementCarte.module.css";
+import styles from './EvenementCarte.module.css';
 
 const EvenementCarte = ({ ev, afficherDetails }) => {
-  const prix = ev.prix === 0 ? "Gratuit" : `${ev.prix} FCFA`;
-
+  const prix = ev.prix === 0 ? 'Gratuit' : `${ev.prix} FCFA`;
   return (
     <div className={styles.carte}>
       <h3 className={styles.titre}>{ev.titre}</h3>
