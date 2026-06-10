@@ -34,6 +34,14 @@ const App = () => {
     ev.titre.toLowerCase().includes(recherche.toLowerCase())
   );
 
+  useEffect(() => {
+    if (evenementsFiltres.length > 0) {
+      document.title = `(${evenementsFiltres.length}) SenEvent`;
+    } else {
+      document.title = 'SenEvent';
+    }
+  }, [evenementsFiltres.length]);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.titre}>SenEvent — Evenements a Dakar</h1>
