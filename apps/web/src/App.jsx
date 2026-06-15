@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import EvenementCarte from './components/EvenementCarte';
 import SearchBar from './components/SearchBar';
-import EtatChargement from './components/EtatChargement';
 import styles from './App.module.css';
 
 const App = () => {
@@ -15,7 +14,9 @@ const App = () => {
     setErreur(null);
     try {
       const reponse = await fetch('/evenements.json');
-      if (!reponse.ok) throw new Error(`Erreur HTTP ${reponse.status}`);
+      if (!reponse.ok) {
+        throw new Error(`Erreur HTTP ${reponse.status}`);
+      }
       const data = await reponse.json();
       setEvenements(data);
     } catch (e) {
@@ -33,39 +34,31 @@ const App = () => {
     ev.titre.toLowerCase().includes(recherche.toLowerCase())
   );
 
-  useEffect(() => {
-    if (evenementsFiltres.length > 0) {
-      document.title = `(${evenementsFiltres.length}) SenEvent`;
-    } else {
-      document.title = 'SenEvent';
-    }
-  }, [evenementsFiltres.length]);
-
   return (
     <div className={styles.container}>
       <h1 className={styles.titre}>SenEvent — Evenements a Dakar</h1>
-      <EtatChargement
-        chargement={chargement}
-        erreur={erreur}
-        onReessayer={charger}
-      />
+      {chargement && (
+        <p className={styles.message}>Chargement des evenements...</p>
+      )}
+      {erreur && (
+        <div className={styles.erreur}>
+          <p>Erreur : {erreur}</p>
+          <button className={styles.bouton} onClick={charger}>Reessayer</button>
+        </div>
+      )}
       {!chargement && !erreur && (
         <>
           <SearchBar recherche={recherche} onRecherche={setRecherche} />
           <p className={styles.compteur}>
             {evenementsFiltres.length} evenement(s) trouve(s)
           </p>
-          {evenementsFiltres.length === 0 ? (
-            <p className={styles.messageVide}>Aucun evenement ne correspond.</p>
-          ) : (
-            evenementsFiltres.map(ev => (
-              <EvenementCarte key={ev.id} ev={ev} afficherDetails={true} />
-            ))
-          )}
+          {evenementsFiltres.map(ev => (
+            <EvenementCarte key={ev.id} ev={ev} afficherDetails={true} />
+          ))}
         </>
       )}
     </div>
   );
 };
-
+   
 export default App;

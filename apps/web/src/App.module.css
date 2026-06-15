@@ -12,7 +12,7 @@
 
 .bouton {
   padding: 0.6rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1rem;    
   cursor: pointer;
   border: 1px solid #1a3a5c;
   border-radius: 6px;
@@ -54,10 +54,22 @@
 .erreur button {
   margin-top: 0.5rem;
 }
-
-.messageVide {
+.message {
   text-align: center;
-  color: #888;
+  color: #666;
   font-style: italic;
+  padding: 2rem;
+}
+
+.erreur {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
   padding: 1rem;
+  margin: 1rem 0;
+  color: #a01a1a;
+}
+
+.erreur button {
+  margin-top: 0.5rem;
 }
