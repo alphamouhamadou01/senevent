@@ -18,7 +18,8 @@ const App = () => {
       console.error("Erreur :", error);
     }
     setChargement(false);
-  };
+  };              
+  
 
   const evenementsFiltres = evenements.filter(ev =>
     ev.titre.toLowerCase().includes(recherche.toLowerCase())
