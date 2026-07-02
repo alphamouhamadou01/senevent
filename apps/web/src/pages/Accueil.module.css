@@ -1,0 +1,24 @@
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+}
+
+.titre {
+  color: #1a3a5c;
+  margin-bottom: 1rem;
+}
+
+.compteur {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0.8rem 0;
+}
+
+.messageVide {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 1rem;
+}

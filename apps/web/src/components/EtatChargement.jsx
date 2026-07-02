@@ -1,30 +1,22 @@
-import styles from "./EtatChargement.module.css";
+import styles from './EtatChargement.module.css';
 
-interface Props {
-  chargement: boolean;
-  erreur: string | null;
-  onReessayer: () => void;
-}
-
-const EtatChargement = ({ chargement, erreur, onReessayer }: Props) => {
+const EtatChargement = ({ chargement, erreur, onReessayer }) => {
   if (chargement) {
-    return <p className={styles.message}>Chargement des événements...</p>;
+    return (
+      <p className={styles.message}>Chargement des evenements...</p>
+    );
   }
-
   if (erreur) {
     return (
       <div className={styles.erreur}>
         <p>Erreur : {erreur}</p>
         <button className={styles.bouton} onClick={onReessayer}>
-          Réessayer
+          Reessayer
         </button>
       </div>
     );
   }
-
-  // Si tout va bien, ne rien afficher
   return null;
 };
 
 export default EtatChargement;
-
