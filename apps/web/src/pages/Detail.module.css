@@ -64,3 +64,19 @@
   color: #ea7d2b;
   font-weight: bold;
 }
+
+.supprimer {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  background: #a01a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.supprimer:hover {
+  background: #c02020;
+}
