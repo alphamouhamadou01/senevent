@@ -1,27 +1,28 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { Link } from "expo-router";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 
 export default function EvenementCarte({ evenement }) {
-  const prix = evenement.prix === 0
-    ? "Gratuit"
-    : `${evenement.prix} FCFA`;
+  const prix = evenement.prix === 0 ? "Gratuit" : `${evenement.prix} FCFA`;
 
   return (
-    <View style={styles.carte}>
-      {evenement.image_url && (
-        <Image
-          source={{ uri: evenement.image_url }}
-          style={styles.image}
-        />
-      )}
-      <View style={styles.contenu}>
-        <Text style={styles.titre}>{evenement.titre}</Text>
-        <Text style={styles.lieu}>{evenement.lieu_nom}</Text>
-        <View style={styles.pied}>
-          <Text style={styles.categorie}>{evenement.categorie}</Text>
-          <Text style={styles.prix}>{prix}</Text>
+    <Link href={`/evenement/${evenement.id}`} asChild>
+      <Pressable style={styles.carte}>
+        {evenement.image_url && (
+          <Image
+            source={{ uri: evenement.image_url }}
+            style={styles.image}
+          />
+        )}
+        <View style={styles.contenu}>
+          <Text style={styles.titre}>{evenement.titre}</Text>
+          <Text style={styles.lieu}>{evenement.lieu_nom}</Text>
+          <View style={styles.pied}>
+            <Text style={styles.categorie}>{evenement.categorie}</Text>
+            <Text style={styles.prix}>{prix}</Text>
+          </View>
         </View>
-      </View>
-    </View>
+      </Pressable>
+    </Link>
   );
 }
 
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8,
     overflow: "hidden",
-    elevation: 3,
+    elevation: 2,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
   },
   image: {
     width: "100%",
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     color: "#1a3a5c",
   },
   lieu: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#666",
     marginTop: 4,
   },
@@ -63,16 +64,13 @@ const styles = StyleSheet.create({
   },
   categorie: {
     fontSize: 12,
-    color: "#fff",
-    backgroundColor: "#ea7d2b",
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 10,
+    color: "#ea7d2b",
+    fontWeight: "600",
     textTransform: "uppercase",
   },
   prix: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#ea7d2b",
+    color: "#1a3a5c",
   },
 });
