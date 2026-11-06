@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,32 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  FlatList,
 } from "react-native";
-import { seConnecter, sInscrire, seDeconnecter } from "@senevent/shared";
+import {
+  seConnecter,
+  sInscrire,
+  seDeconnecter,
+  mesInscriptions,
+} from "@senevent/shared";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Profil() {
   const { session, chargement } = useAuth();
+  const [inscriptions, setInscriptions] = useState([]);
+  const [chargementInscriptions, setChargementInscriptions] = useState(false);
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      setChargementInscriptions(true);
+      mesInscriptions(session.user.id)
+        .then((data) => setInscriptions(data))
+        .catch((err) => console.error(err))
+        .finally(() => setChargementInscriptions(false));
+    } else {
+      setInscriptions([]);
+    }
+  }, [session]);
 
   // Si la session est encore en cours de chargement
   if (chargement) {
@@ -26,7 +46,7 @@ export default function Profil() {
     );
   }
 
-  // Si connecte : afficher l'email + deconnexion
+  // Si connecte : afficher l'email + deconnexion + mes inscriptions
   if (session) {
     return (
       <View style={styles.container}>
@@ -38,6 +58,33 @@ export default function Profil() {
         >
           <Text style={styles.boutonTexte}>Se deconnecter</Text>
         </Pressable>
+
+        <View style={styles.sectionInscriptions}>
+          <Text style={styles.sousTitre}>Mes inscriptions</Text>
+          {chargementInscriptions ? (
+            <ActivityIndicator color="#1a3a5c" style={{ marginTop: 10 }} />
+          ) : inscriptions.length === 0 ? (
+            <Text style={styles.texteVide}>Aucune inscription pour le moment.</Text>
+          ) : (
+            <FlatList
+              data={inscriptions}
+              keyExtractor={(item) => item.evenement_id.toString()}
+              renderItem={({ item }) => (
+                <View style={styles.carteInscription}>
+                  <Text style={styles.titreInscription}>
+                    {item.evenements?.titre ?? "Événement"}
+                  </Text>
+                  <Text style={styles.dateInscription}>
+                    {item.evenements?.date_debut
+                      ? new Date(item.evenements.date_debut).toLocaleDateString("fr-FR")
+                      : ""}
+                  </Text>
+                </View>
+              )}
+              style={styles.listeInscriptions}
+            />
+          )}
+        </View>
       </View>
     );
   }
@@ -173,4 +220,44 @@ const styles = StyleSheet.create({
   boutonTexte: { color: "#fff", fontSize: 16, fontWeight: "600" },
   basculer: { color: "#3949ab", textAlign: "center", marginTop: 16 },
   erreur: { color: "#a01a1a", textAlign: "center", marginBottom: 12 },
+  sectionInscriptions: {
+    marginTop: 28,
+    borderTopWidth: 1,
+    borderTopColor: "#ddd",
+    paddingTop: 16,
+    flex: 1,
+  },
+  sousTitre: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1a3a5c",
+    marginBottom: 12,
+  },
+  texteVide: {
+    color: "#888",
+    fontStyle: "italic",
+    textAlign: "center",
+    marginTop: 8,
+  },
+  listeInscriptions: {
+    marginTop: 4,
+  },
+  carteInscription: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+  },
+  titreInscription: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#1a3a5c",
+  },
+  dateInscription: {
+    fontSize: 13,
+    color: "#666",
+    marginTop: 4,
+  },
 });
