@@ -30,11 +30,12 @@
     "plugins": [
       "expo-router"
     ],
+    "owner": "12alpha",
     "extra": {
+      "router": {},
       "eas": {
-        "projectId": "638927fa-3da9-450a-bc96-fb697b47b2c5"
+        "projectId": "de82c714-de96-46f7-8036-7e5673de2f53"
       }
-    },
-    "owner": "alphamouhamadou01"
+    }
   }
 }

@@ -4,7 +4,7 @@
 
 - Application web : https://senevent-chi.vercel.app
 - Application Android (APK) :
-https://expo.dev/accounts/alphamouhamadou01/projects/senevent/builds/638927fa-3da9-450a-bc96-fb697b47b2c5
+https://expo.dev/accounts/12alpha/projects/senevent/builds/c9960a7b-54c8-4350-a3d4-3072a971388d
 - Version mobile : 1.0.0 (profil EAS "preview")
 - Deploiement continu : chaque merge sur main met la production a jour, chaque Pull Request recoit une URL de previsualisation.
 
