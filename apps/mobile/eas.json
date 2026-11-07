@@ -13,6 +13,10 @@
       "environment": "preview",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://beotqlxfrjlfvtwvupdg.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_IAe0zZD4py9ft1Oaj75GHg_q9M4Us2D"
       }
     },
     "production": {
